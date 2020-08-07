@@ -11,8 +11,13 @@ class Ball {
   }
 }
 /********************************************/
+Ball[] balls;
+int count= 50;
 void setup() {
-  Ball ball= new Ball(150, 300, 100);
   size(400, 400);
-  ball.draw();
+  balls = new Ball[count] ;
+  for ( int i = 0; i < count; i++ ) {
+    balls[i] = new Ball(random(0, 200), random(0, 200), 50);
+    balls[i].draw();
+  }
 }
