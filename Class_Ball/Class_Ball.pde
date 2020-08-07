@@ -14,5 +14,5 @@ class Ball {
 void setup() {
   Ball ball= new Ball(150, 300, 100);
   size(400, 400);
-  ball1.draw();
+  ball.draw();
 }
