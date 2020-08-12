@@ -8,9 +8,9 @@ void setup(){ // create array of object in name balls
   int index = 0 ;
   
   for (int x = 0; x < 10; x++){
-    float randomsize = random(50,100);
-    float randomX = random(randomsize/2,300-randomsize);
-    float randomY = random(randomsize/2,500-randomsize);
+    float randomsize = int(random(50,100));
+    float randomX = int(random(randomsize/2,300-randomsize));
+    float randomY = int(random(randomsize/2,500-randomsize));
     balls[index++] = new Ball(randomX, randomY, randomsize);
   }
   
