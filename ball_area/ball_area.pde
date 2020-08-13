@@ -1,36 +1,38 @@
 Ball[] balls;
 Block[] blocks;
-float sum = 0 ;
+double sum = 0 ;
 int count = 5; // number of objects.
-
+boolean check_ball;
 void setup() { 
   size(600, 600);
   background(200);
   balls = new Ball[count];
   blocks = new Block[count];
-  //int index = 0 ;
+
 
   for (int x = 0; x < count; x++) {
-    /*float randomsize = int(random(50, 100));
-    float randomX = int(random(randomsize/2, 600-randomsize));
-    float randomY = int(random(randomsize/2, 600-randomsize));*/
-    balls[x] = new Ball( random(50,400),random(50,300),random(50,150) );
-    blocks[x] = new Block(random(50,400),random(300,450) );
+    balls[x] = new Ball(random(50, 550), random(50, 550), random(50, 250));
+    blocks[x] = new Block(random(50, 550), random(50, 550), random(50, 250));
   }
-
-  for (Ball ball : balls) { // draw a circle in the first time to see
-    ball.create_ball();
-    sum += ball.getArea();
+  
+  for (Ball k : balls){
+    sum +=k.getArea();
   }
-  for (Block block : blocks) { 
-    block.create_block();
-    sum += block.getArea();
+  for (Block j : blocks){
+    sum +=j.getArea();
   }
-  println("Sum of area is :", sum);
+  println (sum);
 }
 
 void draw() {
-  mouseclick();
+  //mouseclick();
+  background(255);
+  for (Block block : blocks) { 
+    block.create_block();
+  }
+  for (Ball ball : balls) { // draw a circle in the first time to see
+    ball.create_ball();
+  }
 }
 
 
@@ -41,13 +43,14 @@ class Ball {
   Ball(float positionX, float positionY, float size) {
     this.positionX = positionX ;
     this.positionY = positionY ;
-    this.size = random(100,200); ;
-    this.random_color = color(random(0,255),random(0,255),random(0,255));
+    this.size = random(100, 200); 
+    ;
+    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   void create_ball() {
-    ellipseMode(CORNER);
+
     fill(random_color);
-    circle(this.positionX, this.positionY, this.size);
+    ellipse(this.positionX, this.positionY, this.size, this.size);
   }
   public float getArea() {
     float area ;
@@ -60,14 +63,15 @@ class Ball {
   }
 }
 
+
 class Block {
   float positionX, positionY, size;
   color random_color;
-  Block(float pos_x1, float pos_y1) {
+  Block(float pos_x1, float pos_y1, float size) {
     this.positionX = pos_x1 ;
     this.positionY = pos_y1 ;
-    this.size = random(100,150) ;
-    this.random_color = color(random(0,255),random(0,255),random(0,255));
+    this.size = random(100, 200) ;
+    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   void create_block() {
     fill(random_color);
@@ -85,35 +89,35 @@ class Block {
   }
 }
 
-
+/*
 void mouseclick() {
-  if (mousePressed) {
-    int check = 0 ; // check if clicked miss circle or rect dont do anything 
-    delay(250);
-    for (int x = 0; x < balls.length; x++) {
-      if (mouseX > balls[x].positionX && mouseX < balls[x].positionX + balls[x].size && mouseY > balls[x].positionY && mouseY <= balls[x].positionY + balls[x].size) {
-        sum -= balls[x].getArea();
-        println("\n");
-        println("this circle has area =", balls[x].getArea());
-        balls[x].delete();
-        check = 1;
-      }
-    }
-    for (int x = 0; x < blocks.length; x++) {
-      if (mouseX > blocks[x].positionX && mouseX < blocks[x].positionX + blocks[x].size && mouseY > blocks[x].positionY && mouseY <= blocks[x].positionY + blocks[x].size) {
-        sum -= blocks[x].getArea();
-        println("\n");
-        println("this block has area =", blocks[x].getArea());
-        blocks[x].delete();
-        check = 1;
-      }
-    }
-    if (check == 0) {
-    } else {
-      println("New sum of area is", sum);
-    }
-  }
-}
+ if (mousePressed) {
+ int check = 0 ; // check if clicked miss circle or rect dont do anything 
+ delay(250);
+ for (int x = 0; x < balls.length; x++) {
+ if (mouseX > balls[x].positionX && mouseX < balls[x].positionX + balls[x].size && mouseY > balls[x].positionY && mouseY <= balls[x].positionY + balls[x].size) {
+ sum -= balls[x].getArea();
+ println("\n");
+ println("this circle has area =", balls[x].getArea());
+ balls[x].delete();
+ check = 1;
+ }
+ }
+ for (int x = 0; x < blocks.length; x++) {
+ if (mouseX > blocks[x].positionX && mouseX < blocks[x].positionX + blocks[x].size && mouseY > blocks[x].positionY && mouseY <= blocks[x].positionY + blocks[x].size) {
+ sum -= blocks[x].getArea();
+ println("\n");
+ println("this block has area =", blocks[x].getArea());
+ blocks[x].delete();
+ check = 1;
+ }
+ }
+ if (check == 0) {
+ } else {
+ println("New sum of area is", sum);
+ }
+ }
+ }  */
 
 void update() {
   background(200);
@@ -122,5 +126,40 @@ void update() {
   }
   for (Block block : blocks) { 
     block.create_block();
+  }
+}
+
+void mouseClicked() {
+  Ball[] balllist_left;
+  Ball[] balllist_right;
+  Block[] boxlist_left;
+  Block[] boxlist_right;
+  check_ball = true;
+
+  for (int i = balls.length-1; i >= 0; i = i - 1) {
+    float dis = dist(mouseX, mouseY, balls[i].positionX, balls[i].positionY);
+    if (dis < balls[i].size/2) {
+      sum -= balls[i].getArea();
+      println("New sum of area is", sum);
+      balllist_left = (Ball[])subset (balls, 0, i);
+      balllist_right = (Ball[])subset (balls, i+1 );
+      balls = (Ball[])concat(balllist_left, balllist_right);
+      check_ball = false;
+      break;
+    }
+  }
+  
+  if (check_ball == true) {
+    for (int i = blocks.length-1; i >= 0; i = i - 1) {
+      if (mouseX > blocks[i].positionX &&  mouseX < blocks[i].positionX + blocks[i].size && mouseY > blocks[i].positionY &&  mouseY < blocks[i].positionY + blocks[i].size) {
+        sum -= blocks[i].getArea();
+        println("New sum of area is", sum);
+        boxlist_left = (Block[])subset (blocks, 0, i);
+        boxlist_right = (Block[])subset (blocks, i+1 );
+        blocks = (Block[])concat(boxlist_left, boxlist_right);
+        check_ball = false;
+        break;
+      }
+    }
   }
 }
