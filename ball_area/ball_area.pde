@@ -89,36 +89,6 @@ class Block {
   }
 }
 
-/*
-void mouseclick() {
- if (mousePressed) {
- int check = 0 ; // check if clicked miss circle or rect dont do anything 
- delay(250);
- for (int x = 0; x < balls.length; x++) {
- if (mouseX > balls[x].positionX && mouseX < balls[x].positionX + balls[x].size && mouseY > balls[x].positionY && mouseY <= balls[x].positionY + balls[x].size) {
- sum -= balls[x].getArea();
- println("\n");
- println("this circle has area =", balls[x].getArea());
- balls[x].delete();
- check = 1;
- }
- }
- for (int x = 0; x < blocks.length; x++) {
- if (mouseX > blocks[x].positionX && mouseX < blocks[x].positionX + blocks[x].size && mouseY > blocks[x].positionY && mouseY <= blocks[x].positionY + blocks[x].size) {
- sum -= blocks[x].getArea();
- println("\n");
- println("this block has area =", blocks[x].getArea());
- blocks[x].delete();
- check = 1;
- }
- }
- if (check == 0) {
- } else {
- println("New sum of area is", sum);
- }
- }
- }  */
-
 void update() {
   background(200);
   for (Ball ball : balls) {
