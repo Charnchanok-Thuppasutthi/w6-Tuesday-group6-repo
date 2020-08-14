@@ -27,9 +27,11 @@ void setup() {
 void draw() {
   background(255);
   for (Block block : blocks) { 
+    //block.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     block.create_block();
   }
   for (Ball ball : balls) { 
+    //ball.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     ball.create_ball();
   }
 }
@@ -46,9 +48,9 @@ class Ball {
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   void create_ball() {
-
     fill(random_color);
     ellipse(this.positionX, this.positionY, this.size, this.size);
+    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   public float getArea() {
     float area ;
@@ -70,6 +72,7 @@ class Block {
   void create_block() {
     fill(random_color);
     rect( positionX, positionY, size, size);
+    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   public float getArea() {
     float area ;
