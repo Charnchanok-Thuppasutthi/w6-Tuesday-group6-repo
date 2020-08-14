@@ -27,9 +27,11 @@ void setup() {
 void draw() {
   background(255);
   for (Block block : blocks) { 
+    //block.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     block.create_block();
   }
   for (Ball ball : balls) { 
+    //ball.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     ball.create_ball();
   }
   
@@ -46,12 +48,23 @@ class Ball {
     this.size = size; 
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
+  int colors = 255;
+  int count = -1;
   void create_ball() {
+
     color white = color(255);
     color[] colors = {white,random_color};
     int rand = int(random(0,2));
     fill(colors[rand]);
+
+    //fill(colors);
+
     ellipse(this.positionX, this.positionY, this.size, this.size);
+    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    //if (colors > 255 || colors < 0 ){
+    //  count *= -1;
+    //}
+    //colors += count;
   }
   public float getArea() {
     float area ;
@@ -70,12 +83,21 @@ class Block {
     this.size = size ;
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
+  //int colors = 0;
+  //int count = 1;
   void create_block() {
+
     color white = color(255);
     color[] colors = {white,random_color};
     int rand = int(random(0,2));
     fill(colors[rand]);
+    //fill(colors);
     rect( positionX, positionY, size, size);
+    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    //if (colors > 255 || colors < 0 ){
+    //  count *= -1;
+    //}
+    //colors += count;
   }
   public float getArea() {
     float area ;
