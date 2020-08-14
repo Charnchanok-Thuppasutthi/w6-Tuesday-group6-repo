@@ -47,10 +47,16 @@ class Ball {
     this.size = size; 
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
+  int colors = 255;
+  int count = -1;
   void create_ball() {
-    fill(random_color);
+    fill(colors);
     ellipse(this.positionX, this.positionY, this.size, this.size);
-    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    if (colors > 255 || colors < 0 ){
+      count *= -1;
+    }
+    colors += count;
   }
   public float getArea() {
     float area ;
@@ -67,12 +73,18 @@ class Block {
     this.positionX = pos_x1 ;
     this.positionY = pos_y1 ;
     this.size = size ;
-    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
+  int colors = 0;
+  int count = 1;
   void create_block() {
-    fill(random_color);
+    fill(colors);
     rect( positionX, positionY, size, size);
-    this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    if (colors > 255 || colors < 0 ){
+      count *= -1;
+    }
+    colors += count;
   }
   public float getArea() {
     float area ;
