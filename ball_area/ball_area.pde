@@ -32,6 +32,7 @@ void draw() {
   for (Ball ball : balls) { 
     ball.create_ball();
   }
+  
 }
 
 
@@ -46,8 +47,10 @@ class Ball {
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   void create_ball() {
-
-    fill(random_color);
+    color white = color(255);
+    color[] colors = {white,random_color};
+    int rand = int(random(0,2));
+    fill(colors[rand]);
     ellipse(this.positionX, this.positionY, this.size, this.size);
   }
   public float getArea() {
@@ -68,7 +71,10 @@ class Block {
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
   }
   void create_block() {
-    fill(random_color);
+    color white = color(255);
+    color[] colors = {white,random_color};
+    int rand = int(random(0,2));
+    fill(colors[rand]);
     rect( positionX, positionY, size, size);
   }
   public float getArea() {
