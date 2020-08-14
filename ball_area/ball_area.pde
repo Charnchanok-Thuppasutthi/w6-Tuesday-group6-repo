@@ -40,6 +40,7 @@ void draw() {
 
 class Ball {
   float positionX, positionY, size;
+  int fashing;
   color random_color;
 
   Ball(float positionX, float positionY, float size) {
@@ -47,24 +48,22 @@ class Ball {
     this.positionY = positionY ;
     this.size = size; 
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    this.fashing = int(random(0,2));
   }
   int colors = 255;
   int count = -1;
   void create_ball() {
-
-    color white = color(255);
-    color[] colors = {white,random_color};
-    int rand = int(random(0,2));
-    fill(colors[rand]);
-
-    //fill(colors);
-
-    ellipse(this.positionX, this.positionY, this.size, this.size);
-    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
-    //if (colors > 255 || colors < 0 ){
-    //  count *= -1;
-    //}
-    //colors += count;
+    if (this.fashing == 1){
+      color white = color(255);
+      color[] colors = {white,random_color};
+      int rand = int(random(0,2));
+      fill(colors[rand]);
+      ellipse(this.positionX, this.positionY, this.size, this.size);
+    }
+    else {
+      fill(random_color);
+      ellipse(this.positionX, this.positionY, this.size, this.size);
+    }
   }
   public float getArea() {
     float area ;
@@ -76,28 +75,28 @@ class Ball {
 
 class Block {
   float positionX, positionY, size;
+  int fashing;
   color random_color;
   Block(float pos_x1, float pos_y1, float size) {
     this.positionX = pos_x1 ;
     this.positionY = pos_y1 ;
     this.size = size ;
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    this.fashing = int(random(0,2));
   }
-  //int colors = 0;
-  //int count = 1;
-  void create_block() {
 
-    color white = color(255);
-    color[] colors = {white,random_color};
-    int rand = int(random(0,2));
-    fill(colors[rand]);
-    //fill(colors);
-    rect( positionX, positionY, size, size);
-    //this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
-    //if (colors > 255 || colors < 0 ){
-    //  count *= -1;
-    //}
-    //colors += count;
+  void create_block() {
+    if (this.fashing == 1){
+      color white = color(255);
+      color[] colors = {white,random_color};
+      int rand = int(random(0,2));
+      fill(colors[rand]);
+      rect( positionX, positionY, size, size);
+    }
+    else {
+      fill(random_color);
+      rect( positionX, positionY, size, size);
+    }
   }
   public float getArea() {
     float area ;
@@ -115,7 +114,7 @@ void mouseClicked() {
 
   for (int i = balls.length-1; i >= 0; i = i - 1) { // find the ball where clicked and delete it 
     float dis = dist(mouseX, mouseY, balls[i].positionX, balls[i].positionY);
-    if (dis < balls[i].size/2) {
+    if (dis < balls[i].size/2 && balls[i].fashing == 0) {
       sum -= balls[i].getArea();
       println("this ball area is",balls[i].getArea());
       println("New sum of area is", sum);
@@ -129,7 +128,7 @@ void mouseClicked() {
 
   if (check_ball == true) {
     for (int i = blocks.length-1; i >= 0; i = i - 1) {  // find the block where clicked and delete it
-      if (mouseX > blocks[i].positionX &&  mouseX < blocks[i].positionX + blocks[i].size && mouseY > blocks[i].positionY &&  mouseY < blocks[i].positionY + blocks[i].size) {
+      if (mouseX > blocks[i].positionX &&  mouseX < blocks[i].positionX + blocks[i].size && mouseY > blocks[i].positionY &&  mouseY < blocks[i].positionY + blocks[i].size && blocks[i].fashing == 0) {
         sum -= blocks[i].getArea();
         println("this block area is",blocks[i].getArea());
         println("New sum of area is", sum);
