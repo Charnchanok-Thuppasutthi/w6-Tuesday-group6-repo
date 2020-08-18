@@ -32,12 +32,15 @@ void setup() {
 
 void draw() {
   background(255);
+
   /* for (Block block : blocks) { 
     //block.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+=======
+  for (Block block : blocks) { 
+>>>>>>> 19e9833481723e39643dd9871592a2adc837776b
     block.create_block();
   }
   for (Ball ball : balls) { 
-    //ball.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     ball.create_ball();
   }*/
 
@@ -142,7 +145,7 @@ void mouseClicked() {
       break;
     }
   }
-
+  
   if (check_ball == true) {
     for (int i = blocks.length-1; i >= 0; i = i - 1) {  // find the block where clicked and delete it
       if (mouseX > blocks[i].positionX &&  mouseX < blocks[i].positionX + blocks[i].size && mouseY > blocks[i].positionY &&  mouseY < blocks[i].positionY + blocks[i].size && blocks[i].fashing == 0) {
