@@ -1,5 +1,5 @@
-Ball[] balls;
 Block[] blocks;
+
 double sum = 0 ;
 int amount = 5; // amount of objects.
 boolean check_ball;
@@ -7,7 +7,7 @@ boolean check_ball;
 void setup() { 
   size(600, 600);
   background(200);
-  balls = new Ball[amount];
+  /* balls = new Ball[amount];
   blocks = new Block[amount];
 
   for (int x = 0; x < amount; x++) {
@@ -21,19 +21,34 @@ void setup() {
   for (Block block : blocks) {
     sum +=block.getArea();
   }
-  println ("sum of area is",sum);
+  println ("sum of area is",sum);*/
+  blocks = new Block[1];
+  blocks[0] = new Block(random(50, 550), random(50, 550), random(50, 250));
+  blocks[0].balls = new Ball[3];
+  blocks[0].balls[0] =new Ball(blocks[0].positionX, blocks[0].positionY, blocks[0].size);
+  blocks[0].balls[1] =new Ball(blocks[0].positionX, blocks[0].positionY, blocks[0].size);
+  blocks[0].balls[2] =new Ball(blocks[0].positionX, blocks[0].positionY, blocks[0].size);
 }
 
 void draw() {
   background(255);
-  for (Block block : blocks) { 
+  /* for (Block block : blocks) { 
     //block.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     block.create_block();
   }
   for (Ball ball : balls) { 
     //ball.random_color = color(random(0, 255), random(0, 255), random(0, 255));
     ball.create_ball();
+  }*/
+
+  for (Block block : blocks) { 
+    //block.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    block.create_block();
   }
+  for (Ball ball : blocks[0].balls) { 
+    //ball.random_color = color(random(0, 255), random(0, 255), random(0, 255));
+    ball.create_ball();
+    }
   
 }
 
@@ -48,11 +63,12 @@ class Ball {
     this.positionY = positionY ;
     this.size = size; 
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
-    this.fashing = int(random(0,2));
+    this.fashing = 0;
   }
   int colors = 255;
   int count = -1;
   void create_ball() {
+    ellipseMode(CORNER);
     if (this.fashing == 1){
       color white = color(255);
       color[] colors = {white,random_color};
@@ -77,12 +93,13 @@ class Block {
   float positionX, positionY, size;
   int fashing;
   color random_color;
+  Ball[] balls;
   Block(float pos_x1, float pos_y1, float size) {
     this.positionX = pos_x1 ;
     this.positionY = pos_y1 ;
     this.size = size ;
     this.random_color = color(random(0, 255), random(0, 255), random(0, 255));
-    this.fashing = int(random(0,2));
+    this.fashing = 0;
   }
 
   void create_block() {
@@ -112,15 +129,15 @@ void mouseClicked() {
   Block[] boxlist_right;
   check_ball = true;
 
-  for (int i = balls.length-1; i >= 0; i = i - 1) { // find the ball where clicked and delete it 
-    float dis = dist(mouseX, mouseY, balls[i].positionX, balls[i].positionY);
-    if (dis < balls[i].size/2 && balls[i].fashing == 0) {
-      sum -= balls[i].getArea();
-      println("this ball area is",balls[i].getArea());
+  for (int i = blocks[0].balls.length-1; i >= 0; i = i - 1) { // find the ball where clicked and delete it 
+    float dis = dist(mouseX, mouseY, blocks[0].balls[i].positionX, blocks[0].balls[i].positionY);
+    if (dis < blocks[0].balls[i].size/2 && blocks[0].balls[i].fashing == 0) {
+      sum -= blocks[0].balls[i].getArea();
+      println("this ball area is",blocks[0].balls[i].getArea());
       println("New sum of area is", sum);
-      balllist_left = (Ball[])subset (balls, 0, i);
-      balllist_right = (Ball[])subset (balls, i+1 );
-      balls = (Ball[])concat(balllist_left, balllist_right);
+      balllist_left = (Ball[])subset (blocks[0].balls, 0, i);
+      balllist_right = (Ball[])subset (blocks[0].balls, i+1 );
+      blocks[0].balls = (Ball[])concat(balllist_left, balllist_right);
       check_ball = false;
       break;
     }
